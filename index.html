@@ -290,6 +290,150 @@
     right:36px;
     z-index:3;
   }
+  /* All styles are nested inside .slash-faq-section wrapper to isolate them from your global code */
+
+.slash-faq-section {
+  --slash-bg: #47034E;
+  --slash-text-main: #FFFFFF;
+  --slash-text-muted: #9F5EA5;
+  --slash-border: #9F5EA5;
+  --slash-font-serif: "Times New Roman", Times, Baskerville, Georgia, serif;
+  --slash-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  background-color: var(--slash-bg);
+  color: var(--slash-text-main);
+  padding: 80px 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.slash-faq-section * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.slash-faq-section .faq-container {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 60px;
+  align-items: flex-start;
+}
+
+/* Left Branding Side */
+.slash-faq-section .faq-left {
+  position: sticky;
+  top: 40px;
+}
+
+.slash-faq-section .faq-title {
+  font-family: var(--slash-font-serif);
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+
+.slash-faq-section .faq-subtitle {
+  font-family: var(--slash-font-sans);
+  color: var(--slash-text-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.slash-faq-section .faq-link {
+  color: var(--slash-text-muted);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.slash-faq-section .faq-link:hover {
+  color: var(--slash-text-main);
+}
+
+/* Right Accordion Side */
+.slash-faq-section .faq-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.slash-faq-section .faq-item {
+  border-bottom: 1px solid var(--slash-border);
+}
+
+.slash-faq-section .faq-trigger {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.slash-faq-section .question-text {
+  font-family: var(--slash-font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--slash-text-main);
+  padding-right: 20px;
+}
+
+/* Minimalist Chevron Icon via CSS Boarder drawings */
+.slash-faq-section .chevron-icon {
+  width: 10px;
+  height: 10px;
+  border-right: 1.5px solid var(--slash-text-muted);
+  border-bottom: 1.5px solid var(--slash-text-muted);
+  transform: rotate(45deg);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  margin-top: -4px;
+}
+
+/* Change icon state when parent is active */
+.slash-faq-section .faq-item.active .chevron-icon {
+  transform: rotate(-135deg);
+  margin-top: 4px;
+}
+
+/* Sliding Container Wrapper */
+.slash-faq-section .faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slash-faq-section .faq-content-inner {
+  font-family: var(--slash-font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--slash-text-muted);
+  padding-bottom: 24px;
+  max-width: 90%;
+}
+
+/* Responsive Adaptive Adjustments for Tablets/Mobile */
+@media (max-width: 868px) {
+  .slash-faq-section .faq-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .slash-faq-section {
+    padding: 60px 24px;
+  }
+  .slash-faq-section .faq-left {
+    position: static;
+  }
+}
 
   @media (max-width: 860px){
     .nav-links{display:none;}
@@ -321,6 +465,373 @@
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
   }
+  /* Isolated namespace to prevent global rule leaks */
+.monocad-hero-section {
+  --mono-bg: #f9f9f9;
+  --mono-text: #1a1a1a;
+  --mono-red: #d62828;
+  --mono-line: rgba(0, 0, 0, 0.08);
+  --mono-font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--mono-bg);
+  color: var(--mono-text);
+  font-family: var(--mono-font);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Local reset to ensure isolated container safety */
+.monocad-hero-section * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Background Grid Alignment Lines */
+.monocad-hero-section .grid-line {
+  position: absolute;
+  background-color: var(--mono-line);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.monocad-hero-section .line-vertical {
+  width: 1px;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.monocad-hero-section .line-horizontal {
+  height: 1px;
+  left: 0;
+  right: 0;
+  top: 25%; /* Aligns precisely tracking the top status nav row split line */
+}
+
+/* Top Internal Navigation Row */
+.monocad-hero-section .section-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 60px;
+  z-index: 2;
+}
+
+.monocad-hero-section .nav-item {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* Center Mechanical Focus Target Widget */
+.monocad-hero-section .focus-target {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Renders custom corner bracket frames via border logic cuts */
+.monocad-hero-section .corner-brackets {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.monocad-hero-section .corner-brackets::before,
+.monocad-hero-section .corner-brackets::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+}
+
+/* Top Left & Bottom Right bracket ticks */
+.monocad-hero-section .corner-brackets::before {
+  top: 0;
+  left: 0;
+  border-top: 1.5px solid rgba(0,0,0,0.4);
+  border-left: 1.5px solid rgba(0,0,0,0.4);
+}
+
+.monocad-hero-section .corner-brackets::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1.5px solid rgba(0,0,0,0.4);
+  border-right: 1.5px solid rgba(0,0,0,0.4);
+}
+
+.monocad-hero-section .center-square {
+  width: 12px;
+  height: 12px;
+  background-color: var(--mono-text);
+}
+
+/* Hero Central Core Content Layout */
+.monocad-hero-section .hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 120px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.monocad-hero-section .main-heading {
+  font-size: clamp(48px, 8.5vw, 110px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--mono-text);
+  text-transform: uppercase;
+  margin-bottom: 60px;
+}
+
+/* Bottom Action Component Button */
+.monocad-hero-section .action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #47034E;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s ease;
+}
+
+.monocad-hero-section .action-link:hover {
+  opacity: 0.8;
+}
+
+.monocad-hero-section .red-block {
+  width: 8px;
+  height: 8px;
+  background-color: #47034E;
+  display: inline-block;
+}
+
+/* Responsive Fluid Adjustments for Smaller viewports */
+@media (max-width: 768px) {
+  .monocad-hero-section {
+    padding: 0 20px;
+  }
+  .monocad-hero-section .section-nav {
+    padding: 0 24px;
+  }
+  .monocad-hero-section .main-heading {
+    margin-bottom: 40px;
+  }
+}
+
+/* Isolated namespace wrapper to prevent leakage */
+.lyria-about-section {
+  --lyria-bg: #47034E; /* Deep dark/black background */
+  --lyria-blue-text: #E0B6E4; /* Light blue accent font color */
+  --lyria-blue-box: #9F5EA5; /* Soft light blue box tint background */
+  --lyria-font: 'Impact', 'Arial Black', -apple-system, BlinkMacSystemFont, sans-serif;
+  --lyria-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  background-color: var(--lyria-bg);
+  min-height: 100vh;
+  width: 100%;
+  padding: 100px 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Local safety resets */
+.lyria-about-section * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.lyria-about-section .about-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Top Row Styles */
+.lyria-about-section .about-top-row {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.lyria-about-section .section-label {
+  font-family: var(--lyria-sans);
+  color: var(--lyria-blue-text);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.lyria-about-section .main-statement {
+  font-family: var(--lyria-font);
+  color: var(--lyria-blue-text);
+  font-size: clamp(32px, 4.8vw, 68px);
+  font-weight: 400;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.lyria-about-section .indent-text {
+  margin-left: 12%;
+  display: inline-block;
+}
+
+/* Asymmetric Staggered Gallery Grid */
+.lyria-about-section .about-gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.8fr;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.lyria-about-section .gallery-card {
+  width: 100%;
+  overflow: hidden;
+  background-color: #111827; /* Fallback frame background color */
+}
+
+/* Specific Card Configurations matching image layout metrics */
+.lyria-about-section .year-card {
+  background-color: var(--lyria-blue-box);
+  aspect-ratio: 1.45 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lyria-about-section .year-text {
+  font-family: var(--lyria-font);
+  color: #030712;
+  font-size: clamp(60px, 11vw, 150px);
+  line-height: 1;
+}
+
+.lyria-about-section .portrait-card {
+  aspect-ratio: 0.82 / 1;
+}
+
+.lyria-about-section .landscape-card {
+  aspect-ratio: 1.25 / 1;
+  margin-top: -10px; /* Slight offset variation */
+}
+
+.lyria-about-section .gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%); /* Matches image monochrome filter layout */
+}
+
+/* --- ANIMATION BASE STATES --- */
+.lyria-about-section .slide-in-left,
+.lyria-about-section .slide-in-right,
+.lyria-about-section .slide-in-up-1,
+.lyria-about-section .slide-in-up-2,
+.lyria-about-section .slide-in-up-3 {
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
+}
+
+.lyria-about-section .slide-in-left {
+  transform: translateX(-60px);
+}
+
+.lyria-about-section .slide-in-right {
+  transform: translateX(80px);
+}
+
+.lyria-about-section .slide-in-up-1 {
+  transform: translateY(100px);
+}
+
+.lyria-about-section .slide-in-up-2 {
+  transform: translateY(140px);
+  transition-delay: 0.15s; /* Stagger effect */
+}
+
+.lyria-about-section .slide-in-up-3 {
+  transform: translateY(180px);
+  transition-delay: 0.3s; /* Stagger effect */
+}
+
+/* --- TRIGGERED ANIMATION VISIBLE STATES --- */
+.lyria-about-section.animate-trigger .slide-in-left,
+.lyria-about-section.animate-trigger .slide-in-right {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.lyria-about-section.animate-trigger .slide-in-up-1,
+.lyria-about-section.animate-trigger .slide-in-up-2,
+.lyria-about-section.animate-trigger .slide-in-up-3 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Adaptive Viewports Breakpoints */
+@media (max-width: 992px) {
+  .lyria-about-section {
+    padding: 60px 32px;
+  }
+  .lyria-about-section .about-top-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .lyria-about-section .indent-text {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .lyria-about-section .about-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .lyria-about-section .landscape-card {
+    margin-top: 0;
+  }
+  .lyria-about-section .about-gallery-grid { display:none;
+}
+}
 </style>
 </head>
 <body>
@@ -334,7 +845,6 @@
     <nav class="nav-links">
       <a href="#how">About</a>
       <a href="for organisers.html">For organisers</a>
-      <a href="#directory">Inventory</a>
       <a href="pricing.html">Pricing</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -366,7 +876,6 @@
   <nav class="mobile-menu-links">
     <a href="#how">About</a>
     <a href="for organisers.html">For Organisers</a>
-    <a href="#directory">Inventory</a>
     <a href="pricing.html">Pricing</a>
     <a href="#faq">FAQ</a>
   </nav>
@@ -459,6 +968,141 @@
     </div>
   </div>
 </section>
+
+<section class="lyria-about-section" id="aboutHostSection">
+  <div class="about-container">
+    
+    <div class="about-top-row">
+      <div class="section-label slide-in-left">ABOUT TIXTEE</div>
+      <h2 class="main-statement slide-in-right">
+        BUYING AND SELLING TICKETS <br>
+        SHOULDNT BE THIS HARD <br>
+        <span class="indent-text">SO WE BUILT SOMETHING THAT</span> <br>
+        <span class="indent-text">ACTUALLY MAKES SENSE!.</span>
+      </h2>
+    </div>
+
+    <div class="about-gallery-grid">
+      
+      <div class="gallery-card year-card slide-in-up-1">
+        <div class="year-text">2026</div>
+      </div>
+
+      <div class="gallery-card portrait-card slide-in-up-2">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="Host portrait" class="gallery-img">
+      </div>
+
+      <div class="gallery-card landscape-card slide-in-up-3">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600" alt="Host action shot" class="gallery-img">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="monocad-hero-section">
+  <div class="grid-line line-vertical"></div>
+  <div class="grid-line line-horizontal"></div>
+
+  <div class="section-nav">
+    <div class="nav-item">EXPLORE EVENTS!</div>
+    <div class="nav-item text-right">LIST YOUR SHOW!</div>
+  </div>
+
+  <div class="focus-target">
+    <div class="corner-brackets"></div>
+    <div class="center-square"></div>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="main-heading">
+      FROM IDEA<br>
+      TO SOLD OUT.
+    </h1>
+    
+    <a href="#" class="action-link">
+      <span class="red-block"></span>
+      SELL YOUR TICKETS!!
+      <span class="red-block"></span>
+    </a>
+  </div>
+</section>
+
+<section class="slash-faq-section">
+  <div class="faq-container">
+    
+    <div class="faq-left">
+      <h2 class="faq-title">Frequently asked questions</h2>
+      <p class="faq-subtitle">Don't see the answer you're looking for? <br><a href="#" class="faq-link">Get in touch.</a></p>
+    </div>
+
+    <div class="faq-right">
+      
+      <div class="faq-item active">
+        <button class="faq-trigger" aria-expanded="true">
+          <span class="question-text">What is TIXTEE.?</span>
+          <span class="chevron-icon"></span>
+        </button>
+        <div class="faq-content" style="max-height: none;">
+          <div class="faq-content-inner">
+            TIXTEE is a revolutionary ticketing platform that leverages blockchain technology to provide a secure, transparent, and efficient way to buy, sell, and manage tickets for events and concerts.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="question-text">Is there a limit to how much cashback I can earn?</span>
+          <span class="chevron-icon"></span>
+        </button>
+        <div class="faq-content">
+          <div class="faq-content-inner">
+            No, there are no structural caps on your earning potentials. You earn unlimited high cashback dynamically calculated on all eligible platform expenditures.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="question-text">Are there any hidden fees with TIXTEE.?</span>
+          <span class="chevron-icon"></span>
+        </button>
+        <div class="faq-content">
+          <div class="faq-content-inner">
+            We operate with clear, transparent pricing models designed for scale. Speak with our support architecture for custom tier limits with zero hidden operational maintainance costs.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="question-text">Why should I use TIXTEE?</span>
+          <span class="chevron-icon"></span>
+        </button>
+        <div class="faq-content">
+          <div class="faq-content-inner">
+            TIXTEE streamlines the ticketing process for high-volume enterprise operations through instant card issuance, deep accounting hooks, and optimal yield management features.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="question-text">Is TIXTEE safe?</span>
+          <span class="chevron-icon"></span>
+        </button>
+        <div class="faq-content">
+          <div class="faq-content-inner">
+            Security is our baseline. All funds are held securely with our partner banks with enhanced multi-million dollar federal layer FDIC insurance pass-through coverage protocols.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 <script>
   // ----- Mobile menu toggle -----
   const menuToggle = document.getElementById('menuToggle');
@@ -508,6 +1152,68 @@ window.addEventListener('load', function () {
       }, 2500);
     });
   });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const faqSection = document.querySelector(".slash-faq-section");
+  if (!faqSection) return;
+
+  const faqItems = faqSection.querySelectorAll(".faq-item");
+
+  faqItems.forEach((item) => {
+    const trigger = item.querySelector(".faq-trigger");
+    const content = item.querySelector(".faq-content");
+
+    trigger.addEventListener("click", () => {
+      const isActive = item.classList.contains("active");
+
+      // Optional: Close other open accordion tabs automatically
+      faqItems.forEach((otherItem) => {
+        if (otherItem !== item && otherItem.classList.contains("active")) {
+          otherItem.classList.remove("active");
+          const otherContent = otherItem.querySelector(".faq-content");
+          otherContent.style.maxHeight = "0px";
+          otherItem.querySelector(".faq-trigger").setAttribute("aria-expanded", "false");
+        }
+      });
+
+      // Toggle state for current clicked item
+      if (isActive) {
+        item.classList.remove("active");
+        content.style.maxHeight = "0px";
+        trigger.setAttribute("aria-expanded", "false");
+      } else {
+        item.classList.add("active");
+        // Calculate the native content inner size height for standard CSS slide transitions
+        content.style.maxHeight = content.scrollHeight + "px";
+        trigger.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const targetSection = document.getElementById("aboutHostSection");
+  if (!targetSection) return;
+
+  // Set up the Intersection Observer to watch when the section enters the viewport
+  const observerOptions = {
+    root: null,
+    threshold: 0.15 // Triggers execution when 15% of the section is visible
+  };
+
+  const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Inject the animation active state tracking class
+        targetSection.classList.add("animate-trigger");
+        // Once the intro animation fires, stop tracking to preserve system memory performance
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  sectionObserver.observe(targetSection);
 });
 </script>
 
