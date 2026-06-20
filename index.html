@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Tixtee | One Event. One Link.</title>
+<meta name="description" content="Sell tickets, share your event, and get paid instantly. One link for your event page, QR check-in, and instant payouts. Built for Nigerian events." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#47034E;
+    --orange-dark:#9F5EA5;
+    --ink:#1A1410;
+    --cream:#0C0C0C;
+    --paper:#FFFFFF;
+    --deep:#2D2117;
+    --peach:#E0B6E4;
+    --line: rgba(26,20,16,0.12);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:absolute;
+    top:0;left:0;right:0;
+    z-index:50;
+    background:transparent;
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 28px;
+    max-width:1400px;
+    margin:0 auto;
+  }
+  .logo-block{
+    display:flex;
+    flex-direction:column;
+    line-height:1.2;
+  }
+  .logo-block .name{
+    font-weight:800;
+    font-size:15px;
+    color:white;
+    letter-spacing:0.01em;
+  }
+  .logo-block .tag{
+    font-size:11px;
+    color:rgba(255,255,255,0.8);
+    font-weight:500;
+  }
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-size:14px;
+    font-weight:500;
+    color:white;
+    background: #9F5EA5;
+    border-radius: 20px;
+    padding: 10px 30px;
+    backdrop-filter: blur(50px);
+  }
+  .nav-links a{
+    opacity:0.85;
+    transition:opacity .2s;
+  }
+  .nav-links a:hover{
+    opacity:1;
+    color: #47034E;
+    transform: rotateX(30deg);
+    font-size: 30px;
+  }
+  .nav-actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
+  .nav-login{
+    color:white;
+    font-size:14px;
+    font-weight:600;
+  }
+  .btn-join{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--ink);
+    color:white;
+    padding:10px 8px 10px 18px;
+    border-radius:99px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    border:none;
+  }
+  .btn-join .arrow-circle{
+    width:26px;height:26px;
+    border:2.5px solid #9F5EA5;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .nav-mobile-toggle{
+    display:none;
+    width:38px;height:38px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.15);
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    border:none;
+  }
+  .nav-mobile-toggle svg{width:18px;height:18px;}
+  .mobile-menu{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:var(--orange);
+    z-index:100;
+    flex-direction:column;
+    padding:24px 28px;
+  }
+  .mobile-menu.is-open{display:flex;}
+  .mobile-menu-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .mobile-menu-close{
+    width:38px;height:38px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.2);
+    border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+  }
+  .mobile-menu-links{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:48px;
+  }
+  .mobile-menu-links a{
+    color:white;
+    font-size:28px;
+    font-weight:700;
+    font-family:'Inter Tight',sans-serif;
+  }
+  .mobile-menu-links a:hover{
+    background: #9F5EA5;
+    color: #47034E;
+    padding: 15px;
+    border-radius: 20px 50px;
+  }
+  .mobile-menu-foot{
+    margin-top:auto;
+    display:flex;
+    gap:16px;
+  }
+  .mobile-menu-foot a{
+    color:white;
+    font-weight:600;
+    font-size:15px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:var(--orange);
+    overflow:hidden;
+    min-height:680px;
+    padding:140px 0 60px;
+  }
+  .hero-wordmark-wrap{
+    position:absolute;
+    left:0;
+    width:100%;
+    text-align:center;
+    top: 30%;
+    z-index:1;
+    pointer-events:none;
+  }
+  .hero-wordmark-wrap h1{
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:800;
+    font-size:clamp(180px, 13vw, 200px);
+    color:white;
+    opacity:0.92;
+    letter-spacing:-0.03em;
+    line-height:0.9;
+    margin:0;
+    white-space:nowrap;
+    text-shadow:0 18px 40px rgba(0,0,0,0.12);
+  }
+
+  .hero-cards{
+    position:relative;
+    z-index:2;
+    max-width:980px;
+    margin:0 auto;
+    height:380px;
+     top:150px;
+  }
+  .ticket-card{
+    position:absolute;
+    width:230px;
+    height:300px;
+    background:var(--ink);
+    border-radius:18px;
+    padding:20px;
+    color:white;
+    box-shadow:0 30px 50px -20px rgba(0,0,0,0.45);
+  }
+  .ticket-card .card-name{
+    font-family:'Inter Tight',sans-serif;
+    font-weight:700;
+    font-size:19px;
+    line-height:1.15;
+  }
+  .ticket-card .card-role{
+    font-size:11px;
+    opacity:0.55;
+    margin-top:4px;
+  }
+  .ticket-card .card-support{
+    position:absolute;
+    top:18px;
+    right:18px;
+    background:white;
+    color:var(--ink);
+    font-size:10px;
+    font-weight:700;
+    padding:5px 10px 5px 8px;
+    border-radius:99px;
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .ticket-card .card-art{
+    position:absolute;
+    bottom:54px;
+    left:20px;
+    right:20px;
+    height:130px;
+    border-radius:12px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .ticket-card .card-wallet{
+    position:absolute;
+    bottom:18px;
+    left:20px;
+    right:20px;
+    background:#9F5EA5;
+    border-radius:8px;
+    padding:7px 10px;
+    font-size:10px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .card-1{ top:0px;   left:0%;   transform:rotate(-13deg); z-index:1; }
+  .card-2{ top:28px;  left:24%;  transform:rotate(-4deg);  z-index:2; }
+  .card-3{ top:-6px;  left:48%;  transform:rotate(5deg);   z-index:3; }
+  .card-4{ top:34px;  left:72%;  transform:rotate(13deg);  z-index:1; }
+
+  .hero-join-pill{
+    position:absolute;
+    bottom:36px;
+    right:36px;
+    z-index:3;
+  }
+
+  @media (max-width: 860px){
+    .nav-links{display:none;}
+    .nav .btn-join{display:none;}
+    .nav-mobile-toggle{display:flex;}
+    .hero{ min-height:560px; padding:120px 0 40px; }
+    .hero-cards{ height:280px; transform:scale(0.74); transform-origin:top center; }
+    .hero-join-pill{ right:20px; bottom:24px; }
+    .hero-wordmark-wrap h1{ font-size: 80px;}
+    .hero-wordmark-wrap{ top: 180px;}
+    .logo-block .name{ display: none;}
+    .logo-block .tag{ display: none;}
+    .hero-cards { max-width: 180px;}
+    .ticket-card {
+        width: 250px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .card-1{ left:60%; transform:translateX(-90%) rotate(-20deg); }
+    .card-2{ left:50%; transform:translateX(-60%)  rotate(-7deg); }
+    .card-3{ left:0px; transform:translateX(10%)   rotate(1deg); }
+    .card-4{ left:10%; transform:translateX(50%)   rotate(30deg); }
+  }
+  @media (min-width: 861px){
+    .nav-mobile-toggle{display:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo-block">
+      <span class="name">TIXTEE</span>
+      <span class="tag">One Event. One Link.</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#how">About</a>
+      <a href="#features">Our Product</a>
+      <a href="#directory">Eventory</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-login" href="#login">Login</a>
+      <button class="btn-join" id="joinBtn">
+        create account
+        <span class="arrow-circle">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </button>
+      <button class="nav-mobile-toggle" id="menuToggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-top">
+    <div class="logo-block">
+      <span class="name">TIXTEE</span>
+      <span class="tag">One Event. One Everything.</span>
+    </div>
+    <button class="mobile-menu-close" id="menuClose" aria-label="Close menu">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6L18 18M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="#how">About</a>
+    <a href="#features">Our Product</a>
+    <a href="#directory">Eventory</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="mobile-menu-foot">
+    <a href="#login">Login</a>
+    <a href="#join">Create account</a>
+  </div>
+</div>
+<section class="hero">
+  <div class="hero-wordmark-wrap">
+    <h1>TIXTEE.</h1>
+  </div>
+
+  <div class="hero-cards">
+    <div class="ticket-card card-1">
+      <div class="card-name">Chidinma<br>Okafor</div>
+      <div class="card-role">Organizer · Lagos</div>
+      <div class="card-support">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.5 4 9.5 4C11 4 12 5 12 5C12 5 13 4 14.5 4C17.5 4 20 6.5 20 9.5C20 15.5 12 21 12 21Z" fill="var(--orange)"/></svg>
+        Support
+      </div>
+      <div class="card-art" style="background:linear-gradient(135deg,#5D0565,#9F5EA5);">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+          <circle cx="30" cy="22" r="11" fill="white" opacity="0.9"/>
+          <path d="M10 54C10 42 18 36 30 36C42 36 50 42 50 54" fill="white" opacity="0.9"/>
+        </svg>
+      </div>
+      <div class="card-wallet">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="13" rx="3" stroke="white" stroke-width="1.6"/><path d="M2 10H22" stroke="white" stroke-width="1.6"/></svg>
+        Add to Wallet
+      </div>
+    </div>
+
+    <div class="ticket-card card-2">
+      <div class="card-name">Detty December<br>Block Party</div>
+      <div class="card-role">Music · Dec 20</div>
+      <div class="card-support">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.5 4 9.5 4C11 4 12 5 12 5C12 5 13 4 14.5 4C17.5 4 20 6.5 20 9.5C20 15.5 12 21 12 21Z" fill="var(--orange)"/></svg>
+        Support
+      </div>
+      <div class="card-art" style="background:linear-gradient(135deg,#5D0565,#9F5EA5);">
+        <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+          <path d="M35 8 L42 28 L63 35 L42 42 L35 63 L28 42 L7 35 L28 28 Z" fill="white" opacity="0.92"/>
+        </svg>
+      </div>
+      <div class="card-wallet">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="13" rx="3" stroke="white" stroke-width="1.6"/><path d="M2 10H22" stroke="white" stroke-width="1.6"/></svg>
+        Add to Wallet
+      </div>
+    </div>
+
+    <div class="ticket-card card-3">
+      <div class="card-name">Tobi<br>Adewale</div>
+      <div class="card-role">Promoter · Abuja</div>
+      <div class="card-support">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.5 4 9.5 4C11 4 12 5 12 5C12 5 13 4 14.5 4C17.5 4 20 6.5 20 9.5C20 15.5 12 21 12 21Z" fill="var(--orange)"/></svg>
+        Support
+      </div>
+      <div class="card-art" style="background:linear-gradient(135deg,#5D0565,#9F5EA5);">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+          <rect x="8" y="8" width="44" height="44" rx="10" fill="white" opacity="0.9"/>
+          <circle cx="22" cy="26" r="3.5" fill="var(--orange)"/>
+          <circle cx="38" cy="26" r="3.5" fill="var(--orange)"/>
+          <path d="M18 38C22 44 38 44 42 38" stroke="var(--orange)" stroke-width="3" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="card-wallet">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="13" rx="3" stroke="white" stroke-width="1.6"/><path d="M2 10H22" stroke="white" stroke-width="1.6"/></svg>
+        Add to Wallet
+      </div>
+    </div>
+
+    <div class="ticket-card card-4">
+      <div class="card-name">Afrobeats<br>Block Party</div>
+      <div class="card-role">Music · Jul 12</div>
+      <div class="card-support">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.5 4 9.5 4C11 4 12 5 12 5C12 5 13 4 14.5 4C17.5 4 20 6.5 20 9.5C20 15.5 12 21 12 21Z" fill="var(--orange)"/></svg>
+        Support
+      </div>
+      <div class="card-art" style="background:linear-gradient(135deg,#9F5EA5,#5D0565);">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+          <path d="M30 5 C40 5 48 15 42 25 C36 33 24 33 18 25 C12 15 20 5 30 5 Z" fill="white" opacity="0.5"/>
+          <path d="M30 55 C20 55 12 45 18 35 C24 27 36 27 42 35 C48 45 40 55 30 55 Z" fill="white" opacity="0.9"/>
+        </svg>
+      </div>
+      <div class="card-wallet">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="13" rx="3" stroke="white" stroke-width="1.6"/><path d="M2 10H22" stroke="white" stroke-width="1.6"/></svg>
+        Add to Wallet
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ----- Mobile menu toggle -----
+  const menuToggle = document.getElementById('menuToggle');
+  const menuClose = document.getElementById('menuClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if(menuToggle && mobileMenu){
+    menuToggle.addEventListener('click', () => mobileMenu.classList.add('is-open'));
+  }
+  if(menuClose && mobileMenu){
+    menuClose.addEventListener('click', () => mobileMenu.classList.remove('is-open'));
+  }
+  mobileMenu?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('is-open'));
+  });
+</script>
+
+</body>
+</html>
