@@ -333,9 +333,9 @@
     </div>
     <nav class="nav-links">
       <a href="#how">About</a>
-      <a href="#features">Our Product</a>
-      <a href="#directory">Eventory</a>
-      <a href="#pricing">Pricing</a>
+      <a href="for organisers.html">For organisers</a>
+      <a href="#directory">Inventory</a>
+      <a href="pricing.html">Pricing</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-actions">
@@ -365,9 +365,9 @@
   </div>
   <nav class="mobile-menu-links">
     <a href="#how">About</a>
-    <a href="#features">Our Product</a>
-    <a href="#directory">Eventory</a>
-    <a href="#pricing">Pricing</a>
+    <a href="for organisers.html">For Organisers</a>
+    <a href="#directory">Inventory</a>
+    <a href="pricing.html">Pricing</a>
     <a href="#faq">FAQ</a>
   </nav>
   <div class="mobile-menu-foot">
@@ -459,7 +459,6 @@
     </div>
   </div>
 </section>
-
 <script>
   // ----- Mobile menu toggle -----
   const menuToggle = document.getElementById('menuToggle');
@@ -474,6 +473,42 @@
   mobileMenu?.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => mobileMenu.classList.remove('is-open'));
   });
+
+  
+ 
+window.addEventListener('load', function () {
+  const track = document.querySelector('.carousel-track');
+
+  if (!track) {
+    console.error('Carousel auto-scroll: could not find .carousel-track on the page. Check your class name matches exactly.');
+    return;
+  }
+
+  let speed = 10;       
+  let delay = 30;       
+  let paused = false;
+  let resumeTimer = null;
+
+  function tick() {
+    if (paused) return;
+    track.scrollLeft += speed;
+    if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
+      track.scrollLeft = 0;
+    }
+  }
+
+  setInterval(tick, delay);
+
+  ['touchstart', 'mousedown', 'wheel'].forEach(function (evt) {
+    track.addEventListener(evt, function () {
+      paused = true;
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () {
+        paused = false;
+      }, 2500);
+    });
+  });
+});
 </script>
 
 </body>
