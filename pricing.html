@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tixty — Plans That Scale With You</title>
+<style>
+  :root{
+    --bg-0:#47034E;
+    --bg-1:#0d0e10;
+    --line:rgba(255,255,255,0.06);
+    --line-strong:rgba(255,255,255,0.12);
+    --card-bg:rgba(255,255,255,0.02);
+    --card-border:rgba(255,255,255,0.09);
+    --card-border-hover:rgba(255,255,255,0.22);
+    --text-0:#f5f5f6;
+    --text-1:#9a9aa0;
+    --text-2:#6b6b70;
+    --check-bg:rgba(255,255,255,0.06);
+    --accent:#e8e8ea;
+    --radius:18px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--bg-0);
+    color:var(--text-0);
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,255,255,0.07), transparent 45%),
+      radial-gradient(ellipse at 50% 120%, rgba(0,0,0,0.9), transparent 60%),
+      var(--bg-0);
+  }
+
+  .stage::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 85%);
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 85%);
+    pointer-events:none;
+  }
+
+  .stage::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(255,255,255,0.05), transparent 30%),
+      radial-gradient(circle at 88% 22%, rgba(255,255,255,0.04), transparent 28%);
+    pointer-events:none;
+  }
+
+  .content{
+    position:relative;
+    z-index:2;
+    max-width:1200px;
+    margin:0 auto;
+    padding:100px 24px 120px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+
+  /* ---------- Logo ---------- */
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:40px;
+    color:var(--text-0);
+  }
+  .logo-word{
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+
+  /* ---------- Badge ---------- */
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 16px 7px 10px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--line-strong);
+    color:var(--text-1);
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:0.01em;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.02) inset, 0 8px 24px -12px rgba(0,0,0,0.6);
+    margin-bottom:36px;
+  }
+  .badge .dot{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:radial-gradient(circle at 30% 30%, #fff, #9a9aa0 70%);
+    flex-shrink:0;
+  }
+
+  /* ---------- Headline ---------- */
+  h1{
+    margin:0;
+    font-size:clamp(34px, 5.4vw, 58px);
+    line-height:1.12;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    max-width:780px;
+  }
+  h1 .light{
+    color: #e0b6e4;
+    font-weight:400;
+  }
+  h1 .strong{
+    color:var(--text-0);
+    font-weight:600;
+  }
+
+  .subhead{
+    margin:22px 0 0;
+    color: #e0b6e4;
+    font-size:16px;
+    font-weight:400;
+  }
+  .plans{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0,1fr));
+    gap:22px;
+    width:100%;
+    max-width:1080px;
+  }
+
+  .card{
+    position:relative;
+    text-align:left;
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:30px 26px 28px;
+    display:flex;
+    flex-direction:column;
+    transition:border-color .25s ease, transform .25s ease, background .25s ease;
+  }
+
+  .card:hover{
+    border-color:var(--card-border-hover);
+    transform:translateY(-3px);
+    background:rgba(255,255,255,0.035);
+  }
+
+  .card.featured{
+    border-color:rgba(255,255,255,0.22);
+    background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+  }
+
+  .card.featured::before{
+    content:"Most popular";
+    position:absolute;
+    top:-12px;
+    right:24px;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:#0b0b0c;
+    background:linear-gradient(135deg,#fff,#c9c9cf);
+    padding:5px 12px;
+    border-radius:999px;
+  }
+
+  .plan-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+
+  .plan-icon{
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.1);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    flex-shrink:0;
+  }
+
+  .plan-name{
+    font-size:16px;
+    font-weight:600;
+    color:var(--text-0);
+  }
+
+  .price{
+    display:flex;
+    align-items:baseline;
+    gap:4px;
+    margin-bottom:6px;
+  }
+  .price .amount{
+    font-size:40px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    color:var(--text-0);
+  }
+  .price .period{
+    font-size:15px;
+    color: #e0b6e4;
+    font-weight:500;
+  }
+
+  .desc{
+    color:#fff;
+    font-size:13.5px;
+    line-height:1.5;
+    margin:0 0 22px;
+    min-height:40px;
+  }
+
+  .cta{
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:11px 0;
+    border-radius:999px;
+    background:linear-gradient(180deg,#f2f2f3,#d6d6d9);
+    color:#0b0b0c;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    margin-bottom:24px;
+    transition:filter .2s ease, transform .2s ease;
+  }
+  .cta:hover{ filter:brightness(1.06); }
+  .cta:active{ transform:scale(0.98); }
+
+  .cta.outline{
+    background:rgba(255,255,255,0.04);
+    color:var(--text-0);
+    border:1px solid rgba(255,255,255,0.16);
+  }
+  .cta.outline:hover{ background:rgba(255,255,255,0.07); }
+
+  .features{
+    list-style:none;
+    margin:0 0 18px;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+    flex:1;
+  }
+
+  .features li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:13.5px;
+    color:#e0b6e4;
+    line-height:1.4;
+  }
+
+  .check{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:var(--check-bg);
+    border:1px solid rgba(255,255,255,0.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    margin-top:1px;
+  }
+  .check svg{ width:9px; height:9px; }
+
+  .trial{
+    font-size:12px;
+    color: #e0b6e4;
+    margin:0;
+  }
+
+  @media (max-width: 880px){
+    .plans{ grid-template-columns:1fr; max-width:420px; }
+    .content{ padding:72px 20px 90px; }
+  }
+
+  /* ---------- Animation ---------- */
+  @media (prefers-reduced-motion: no-preference){
+    .badge{ opacity:0; animation: fade-up .6s cubic-bezier(.22,1,.36,1) .05s forwards; }
+    h1{ opacity:0; animation: fade-up .7s cubic-bezier(.22,1,.36,1) .15s forwards; }
+    .subhead{ opacity:0; animation: fade-up .7s cubic-bezier(.22,1,.36,1) .25s forwards; }
+    .card{ opacity:0; animation: card-in .7s cubic-bezier(.22,1,.36,1) forwards; }
+    .card:nth-child(1){ animation-delay:.35s; }
+    .card:nth-child(2){ animation-delay:.45s; }
+    .card:nth-child(3){ animation-delay:.55s; }
+
+    .badge .dot{ animation: pulse-ring 2.4s ease-in-out infinite; }
+    .stage::after{ animation: drift-glow 14s ease-in-out infinite; }
+    .check svg path{
+      stroke-dasharray:12;
+      stroke-dashoffset:12;
+      animation: draw-check .4s ease forwards;
+    }
+    .card:nth-child(1) .features li:nth-child(1) .check svg path{ animation-delay:.75s; }
+    .card:nth-child(1) .features li:nth-child(2) .check svg path{ animation-delay:.82s; }
+    .card:nth-child(1) .features li:nth-child(3) .check svg path{ animation-delay:.89s; }
+    .card:nth-child(1) .features li:nth-child(4) .check svg path{ animation-delay:.96s; }
+    .card:nth-child(1) .features li:nth-child(5) .check svg path{ animation-delay:1.03s; }
+    .card:nth-child(2) .features li:nth-child(1) .check svg path{ animation-delay:.85s; }
+    .card:nth-child(2) .features li:nth-child(2) .check svg path{ animation-delay:.92s; }
+    .card:nth-child(2) .features li:nth-child(3) .check svg path{ animation-delay:.99s; }
+    .card:nth-child(2) .features li:nth-child(4) .check svg path{ animation-delay:1.06s; }
+    .card:nth-child(2) .features li:nth-child(5) .check svg path{ animation-delay:1.13s; }
+    .card:nth-child(3) .features li:nth-child(1) .check svg path{ animation-delay:.95s; }
+    .card:nth-child(3) .features li:nth-child(2) .check svg path{ animation-delay:1.02s; }
+    .card:nth-child(3) .features li:nth-child(3) .check svg path{ animation-delay:1.09s; }
+    .card:nth-child(3) .features li:nth-child(4) .check svg path{ animation-delay:1.16s; }
+    .card:nth-child(3) .features li:nth-child(5) .check svg path{ animation-delay:1.23s; }
+  }
+
+  @keyframes fade-up{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  @keyframes card-in{
+    from{ opacity:0; transform:translateY(26px) scale(.98); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  @keyframes pulse-ring{
+    0%, 100%{ box-shadow:0 0 0 0 rgba(255,255,255,0.25); }
+    50%{ box-shadow:0 0 0 4px rgba(255,255,255,0); }
+  }
+
+  @keyframes drift-glow{
+    0%, 100%{ transform:translate(0,0); }
+    50%{ transform:translate(2%, 1.5%); }
+  }
+
+  @keyframes draw-check{
+    to{ stroke-dashoffset:0; }
+  }
+
+  .logo-mark{
+    animation: spin-slow 9s linear infinite;
+    transform-origin:50% 50%;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .logo-mark{ animation:none; }
+  }
+  @keyframes spin-slow{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="content">
+
+    <div class="logo">
+      <span class="logo-word">TIXTEE.</span>
+    </div>
+
+    <div class="badge">
+      <span class="dot">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="white"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+      </span>
+      Built for organizers who are tired of spreadsheet chaos
+    </div>
+
+    <h1>
+      <span class="strong">Scale Your Events</span> <span class="light"><br>Not Your Headaches!</span>
+    </h1>
+    <p class="subhead">Plans that move with your event</p>
+
+    <div class="plans">
+      <div class="card">
+        <div class="plan-head">
+          <div class="plan-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1"/>
+              <path d="M21 12a2 2 0 0 0 0 4h-3a2 2 0 0 1 0-4z"/>
+            </svg>
+          </div>
+          <div class="plan-name">No Cost</div>
+        </div>
+        <div class="price">
+          <span class="amount">₦ 0</span>
+          <span class="period">/event</span>
+        </div>
+        <p class="desc">Built for free events,meetups, hangouts, and first-time hosts.</p>
+        <button class="cta outline">Start hosting for free</button>
+        <ul class="features">
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Core tools for ticket launch</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Sales tracking dashboard</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Access to organizer community</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Launch-ready flyer templates</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Sponsor outreach kit</li>
+        </ul>
+        <p class="trial">Free. No trial, no catch.</p>
+      </div>
+
+      <div class="card featured">
+        <div class="plan-head">
+          <div class="plan-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 7v5l3 3" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <div class="plan-name">Now and Then</div>
+        </div>
+        <div class="price">
+          <span class="amount">5%</span>
+        </div>
+        <p class="desc">Built for occasional events, not regular ones!</p>
+        <button class="cta">Continue with this plan</button>
+        <ul class="features">
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Pre-seed</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>QR ticket generation</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Custom check-in flows</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Attendee journey reports</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Priority email support</li>
+        </ul>
+        <p class="trial"></p>
+      </div>
+
+      <!-- Series B -->
+      <div class="card">
+        <div class="plan-head">
+          <div class="plan-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
+  <path d="M2 18h20l-2-9-5 4-3-7-3 7-5-4z"/>
+</svg>
+          </div>
+          <div class="plan-name">PRO</div>
+        </div>
+        <div class="price">
+          <span class="amount">₦ 50,560</span>
+          <span class="period">/6 months</span>
+        </div>
+        <p class="desc">Designed for organizers ready to scale fast and reach new heights.</p>
+        <button class="cta outline">Get started for free</button>
+        <ul class="features">
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full access to all tools</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Custom workflows</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Customer journey reports</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>High-conversion templates</li>
+          <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quarterly strategy calls</li>
+        </ul>
+        <p class="trial">perfect for regular events</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
